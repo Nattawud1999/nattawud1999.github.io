@@ -70,6 +70,12 @@ function NavBar() {
               </Nav.Link>
             </Nav.Item>
 
+            <Nav.Item>
+              <Nav.Link as={Link} to="/Performance" onClick={() => updateExpanded(false)}>
+                <AiFillStar style={{ marginBottom: "4px" }} /> {t("ผลงาน")}
+              </Nav.Link>
+            </Nav.Item>
+
             {/*<Nav.Item>
               <Nav.Link
                 as={Link}

@@ -38,14 +38,6 @@
   pointer-events: none; /* ป้องกันการคลิก */
 }
 
-body {
-  /*cursor: none; */ /* ซ่อนเม้าส์ปกติ */
-}
-
-* {
-  /*cursor: none !important;*/ /* ซ่อนเม้าส์ในทุกองค์ประกอบ */
-}
-
 .click-sparkle {
   position: fixed;
   width: 12px;

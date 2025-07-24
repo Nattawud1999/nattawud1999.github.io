@@ -1,22 +1,31 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from "react";
+
 import Preloader from "../src/components/Pre";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Projects from "./components/Projects/Projects";
 import Footer from "./components/Footer";
+import Performance from "./components/Performance/Performancepage";
 import Resume from "./components/Resume/ResumeNew";
+
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate
 } from "react-router-dom";
+
 import ScrollToTop from "./components/ScrollToTop";
+
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import ThaiFlag from "./Assets/Thai.png";
+import USFlag from "./Assets/US.png";
+
 // import CustomCursor from "./components/CustomCursor";
 
 function App() {
@@ -43,25 +52,22 @@ function App() {
       for (let i = 0; i < 10; i++) {
         const sparkle = document.createElement("span");
         sparkle.className = "click-star";
-        
-        // ตำแหน่งเริ่ม
+
         sparkle.style.left = `${e.clientX}px`;
         sparkle.style.top = `${e.clientY}px`;
-    
-        // สุ่มทิศทาง
+
         const angle = Math.random() * 2 * Math.PI;
         const distance = 40 + Math.random() * 20;
         const x = Math.cos(angle) * distance;
         const y = Math.sin(angle) * distance;
-    
+
         sparkle.style.setProperty("--x", `${x}px`);
         sparkle.style.setProperty("--y", `${y}px`);
-    
+
         document.body.appendChild(sparkle);
         setTimeout(() => sparkle.remove(), 600);
       }
     };
-    
 
     window.addEventListener("click", handleClick);
     return () => window.removeEventListener("click", handleClick);
@@ -100,6 +106,7 @@ function App() {
                 color: "#fff",
               }}
             >
+              {/* พื้นหลังฟ้าเลื่อนไปตามภาษา */}
               <div
                 style={{
                   position: "absolute",
@@ -107,13 +114,14 @@ function App() {
                   left: i18n.language === "th" ? "3px" : "calc(100% - 43px)",
                   width: "40px",
                   height: "24px",
-                  backgroundColor: "#00bfff",
+                  backgroundColor: "transparent",
                   borderRadius: "999px",
                   transition: "left 0.3s ease",
                   zIndex: 1,
                 }}
               ></div>
 
+              {/* ปุ่ม TH */}
               <div
                 onClick={() => changeLanguage("th")}
                 style={{
@@ -124,11 +132,29 @@ function App() {
                   zIndex: 2,
                   cursor: "pointer",
                   userSelect: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "4px",
                 }}
               >
-                TH
+                {i18n.language === "th" ? (
+                  <img
+                    src={ThaiFlag}
+                    alt="TH"
+                    style={{
+                      width: "40px",
+                      height: "24px",
+                      borderRadius: "999px",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  "TH"
+                )}
               </div>
 
+              {/* ปุ่ม EN */}
               <div
                 onClick={() => changeLanguage("en")}
                 style={{
@@ -139,9 +165,26 @@ function App() {
                   zIndex: 2,
                   cursor: "pointer",
                   userSelect: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "4px",
                 }}
               >
-                EN
+                {i18n.language === "en" ? (
+                  <img
+                    src={USFlag}
+                    alt="EN"
+                    style={{
+                      width: "40px",
+                      height: "25px",
+                      borderRadius: "999px",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  "US"
+                )}
               </div>
             </div>
           </div>
@@ -154,6 +197,7 @@ function App() {
           <Route path="/project" element={<Projects />} />
           <Route path="/about" element={<About />} />
           <Route path="/resume" element={<Resume />} />
+          <Route path="/performance" element={<Performance />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />

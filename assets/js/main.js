@@ -5,7 +5,7 @@
 /* พจนานุกรมคำแปลภาษาชุดเต็ม */
 const i18n = {
     en: {
-        title: "Dossier | Developer Portfolio",
+        title: "Nattawud|Portfolio  ",
         desc: "Confidential evidence files and project dossier of a IT Support / Network Engineer.",
         nav_about: "About Me",
         nav_projects: "Projects",

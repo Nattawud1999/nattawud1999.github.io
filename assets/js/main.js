@@ -5,7 +5,7 @@
 /* พจนานุกรมคำแปลภาษาชุดเต็ม */
 const i18n = {
     en: {
-        title: "Nattawud|Portfolio  ",
+        title: "Dossier | Developer Portfolio",
         desc: "Confidential evidence files and project dossier of a IT Support / Network Engineer.",
         nav_about: "About Me",
         nav_projects: "Projects",
@@ -241,14 +241,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let i = 0; i < text.length; i++) {
                     lineDiv.innerHTML = text.substring(0, i + 1) + '<span class="cursor-blink"></span>';
                     playType();
-                    await new Promise(r => setTimeout(r, 20 + Math.random() * 30));
+                    await new Promise(r => setTimeout(r, 10 + Math.random() * 15));
                 }
                 lineDiv.innerHTML = text;
             }
 
             for (let line of bootLines) {
                 await typeLine(line);
-                await new Promise(r => setTimeout(r, 200 + Math.random() * 300));
+                await new Promise(r => setTimeout(r, 100 + Math.random() * 150));
             }
 
             playGranted();
@@ -262,8 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     bootOverlay.style.display = 'none';
                     document.body.style.overflow = '';
-                }, 1000);
-            }, 1000);
+                }, 400);
+            }, 500);
         });
     }
 

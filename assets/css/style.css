@@ -1382,7 +1382,10 @@ footer {
 --------------------------------------------------------------*/
 .boot-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #0b0f19;
     z-index: 9999;
     color: #4af626;
@@ -1390,8 +1393,9 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 1s ease-out;
+    transition: opacity 0.5s ease-out;
 }
+
 .boot-btn {
     background: none;
     border: 1px dashed #4af626;
@@ -1403,11 +1407,13 @@ footer {
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
+
 .boot-btn:hover {
     background: rgba(74, 246, 38, 0.2);
     box-shadow: 0 0 15px #4af626;
     color: #fff;
 }
+
 .boot-terminal {
     width: 90vw;
     max-width: 800px;
@@ -1418,10 +1424,12 @@ footer {
     overflow-y: hidden;
     text-shadow: 0 0 5px #4af626;
 }
+
 .boot-line {
     margin-bottom: 8px;
     word-break: break-word;
 }
+
 .cursor-blink {
     display: inline-block;
     width: 10px;
@@ -1449,26 +1457,51 @@ footer {
     opacity: 0;
     pointer-events: none;
     text-align: center;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
+
 .stamp-approved.animate {
     animation: stamp-bang 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
+
 @keyframes stamp-bang {
-    0% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
-    40% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; filter: drop-shadow(0 0 20px var(--accent-red)); }
-    100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 1; filter: drop-shadow(0 0 5px var(--accent-red)); }
+    0% {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+
+    40% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 1;
+        filter: drop-shadow(0 0 20px var(--accent-red));
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(-15deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 5px var(--accent-red));
+    }
 }
 
 
 /*--------------------------------------------------------------
 # Custom NATIVE Cursor (Zero Delay)
 --------------------------------------------------------------*/
-body, html {
+body,
+html {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%234af626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>') 12 12, auto !important;
 }
 
-a, button, .project-card, input, textarea, select, .close-modal, .mobile-menu-btn, .lang-toggle, .theme-toggle {
+a,
+button,
+.project-card,
+input,
+textarea,
+select,
+.close-modal,
+.mobile-menu-btn,
+.lang-toggle,
+.theme-toggle {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%23D32F2F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><line x1="21" y1="21" x2="17.65" y2="17.65"/><circle cx="12" cy="12" r="2" fill="%23D32F2F"/></svg>') 16 16, pointer !important;
 }
 
@@ -1476,7 +1509,8 @@ a, button, .project-card, input, textarea, select, .close-modal, .mobile-menu-bt
 # Timeline Network Beam Effect
 --------------------------------------------------------------*/
 .timeline {
-    overflow: hidden; /* Contains the beam */
+    overflow: hidden;
+    /* Contains the beam */
 }
 
 .timeline-data-beam {
@@ -1499,8 +1533,21 @@ a, button, .project-card, input, textarea, select, .close-modal, .mobile-menu-bt
 }
 
 @keyframes dataTransfer {
-    0% { top: -100px; opacity: 0; }
-    10% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
 }

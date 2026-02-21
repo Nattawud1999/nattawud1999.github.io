@@ -1,38 +1,524 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+
 <head>
-  <meta charset="utf-8"/>
-  <link rel="icon" href="/favicon.png"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="theme-color" content="#000000"/>
-  <meta name="description" content="Self Developed personal website built with React.js"/>
-  <link rel="manifest" href="/manifest.json"/>
-  <title>Nattawud | Portfolio</title>
-  <meta name="description" content="Self Developed personal website built with React.js">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">แฟ้มลับ | แฟ้มสะสมผลงานนักสืบ</title>
+    <meta name="description" content="แฟ้มหลักฐานผลงานสุดยอดของนักพัฒนา Web Front-end อาวุโส">
 
-  <!-- Google / Search Engine Tags -->
-  <meta itemprop="name" content="Nattawud | Portfolio">
-  <meta itemprop="description" content="Self Developed personal website built with React.js">
-  <meta itemprop="image" content="https://nattawud1999.github.io/og-image.jpg">
+    <!-- Open Graph tags for SEO / Social Sharing -->
+    <meta property="og:title" content="Investigator Portfolio | Classified Dossier">
+    <meta property="og:description"
+        content="Confidential evidence files and project dossier of a Senior Front-end Developer. Access granted.">
+    <meta property="og:type" content="website">
 
-  <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://nattawud1999.github.io">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Nattawud | Portfolio">
-  <meta property="og:description" content="Self Developed personal website built with React.js">
-  <meta property="og:image" content="https://nattawud1999.github.io/og-image.jpg">
+    <!-- SVG Favicon (Magnifying Glass) -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='45' cy='45' r='35' fill='none' stroke='%23D32F2F' stroke-width='10'/%3E%3Cpath d='M70,70 L95,95' stroke='%23D32F2F' stroke-width='12' stroke-linecap='round'/%3E%3Ccircle cx='45' cy='45' r='8' fill='%23FFC107'/%3E%3C/svg%3E">
 
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nattawud | Portfolio">
-  <meta name="twitter:description" content="Self Developed personal website built with React.js">
-  <meta name="twitter:image" content="https://nattawud1999.github.io/og-image.jpg">
+    <!-- Google Fonts: Inter for general UI, Space Mono for detective/typewriter aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-  <script defer="defer" src="/static/js/main.66f03b7e.js"></script>
-  <link href="/static/css/main.b162aadf.css" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+    <!-- Terminal Boot Sequence -->
+    <div id="boot-overlay" class="boot-overlay">
+        <div class="boot-content">
+            <button id="boot-start-btn" class="boot-btn">[ หากคุณต้องการดู Portfolio ของบุคคลที่เก่งและฉลาดที่สุด โปรดแตะที่ข้อความนี้ ]</button>
+            <div id="boot-terminal" class="boot-terminal" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- BIG STAMP FOR RESUME -->
+    <div id="stamp-approved" class="stamp-approved">อนุมัติ (APPROVED)</div>
+
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar hidden-onload" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">&#x1F575;&#xFE0E;</span>
+                <span class="logo-text">DOSSIER</span>
+            </a>
+
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link" data-i18n="nav_about">ประวัติส่วนตัว</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav_projects">ผลงาน</a></li>
+                <li><a href="#history" class="nav-link" data-i18n="nav_history">ประวัติการทำงาน</a></li>
+                <li><a href="#" id="download-resume-btn" class="nav-link resume-btn"
+                        data-i18n="nav_resume">ดาวน์โหลดประวัติ</a></li>
+            </ul>
+
+            <button class="lang-toggle" id="lang-toggle" aria-label="Toggle Language">
+                <span class="th-lang lang-active">TH</span>&nbsp;|&nbsp;<span class="en-lang">EN</span>
+            </button>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                <!-- Moon icon -->
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <!-- Sun icon -->
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- ส่วนฮีโร่ (Hero Section) หน้าแรกสุดที่ดึงดูดสายตา -->
+        <section id="home" class="hero">
+            <div class="container hero-container">
+                <div class="hero-content reveal">
+                    <div class="label-tag blink" data-i18n="status_active">สถานะ: ปฏิบัติการ</div>
+                    <h1 class="hero-title glitch" data-i18n="hero_title" data-text="นักพัฒนาระดับลับสุดยอด">
+                        นักพัฒนา<br><span class="highlight">ระดับลับสุดยอด</span></h1>
+                    <p class="hero-subtitle typewriter" data-i18n="hero_subtitle">ผมไขปริศนาดิจิทัลและสร้างสรรค์ระบบแบบ
+                        Front-end ที่เปี่ยมประสิทธิภาพ</p>
+                    <div class="hero-cta">
+                        <a href="#projects" class="btn btn-primary" data-i18n="hero_cta_1">
+                            <span class="btn-text">ตรวจสอบผลงาน</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="btn btn-outline" data-i18n="hero_cta_2">ติดต่อโอเปอเรเตอร์</a>
+                    </div>
+                </div>
+                <!-- รูปภาพ Avatar รูปหลัก -->
+                <div class="hero-visual reveal fade-left">
+                    <div class="avatar-container">
+                        <div class="stamp-confidential" data-i18n="proj_confidential">ลับสุดยอด</div>
+
+                        <img src="assets/img/profile.png" alt="Profile Vector/Photo" class="avatar-img"
+                            onerror="this.src='https://picsum.photos/seed/detective/400/400'">
+
+                        <div class="tape tape-top-left"></div>
+                        <div class="tape tape-bottom-right"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="mono-label" data-i18n="about_label">// แฟ้มส่วนตัว #X-01</span>
+                    <h2 class="section-title" data-i18n="about_title">ประวัติส่วนกังขา</h2>
+                    <div class="line-divider"></div>
+                </div>
+
+                <div class="evidence-card about-card reveal fade-up">
+                    <div class="pushpin"></div>
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <p class="typewriter-text" data-i18n="about_alias">
+                                > <strong>นามแฝง (ชื่อ):</strong> [ชื่อของคุณ / ใส่ที่นี่]<br>
+                                > <strong>ตำแหน่ง:</strong> นักสืบ Front-end ระดับสูง<br>
+                                > <strong>ฐานปฏิบัติการ:</strong> [กรุงเทพ / ชลบุรี / Remote]<br>
+                                > <strong>ระดับการเข้าถึง:</strong> ระดับ 5 (Senior)
+                            </p>
+
+                            <p class="bio-text" data-i18n="about_bio">
+                                ผู้ต้องสงสัยมีทักษะขั้นสูงในการสร้างสรรค์ Web Interface ที่สมบูรณ์แบบระดับพิกเซล
+                                เป็นที่เลื่องลือในการวางโครงสร้าง UI ที่แข็งแกร่งและสืบสวนหาบั๊กที่ซับซ้อนในระบบรุ่นเก่า
+                                จัดการโค้ดราวกับรับเหมาเก็บกวาดสถานที่เกิดเหตุ—ไม่ปล่อยให้ร่องรอยใดหลุดรอด
+                                และแก้ปัญหาคอขวดของระบบอย่างหมดจด
+                            </p>
+                            <div class="signature">
+                                <span data-i18n="about_verified">รับรองรายงานโดย: </span><span class="sign-font"
+                                    data-i18n="about_director">ผู้อำนวยการฝ่ายวิศวกรรม</span>
+                            </div>
+                        </div>
+                        <div class="about-stats">
+                            <div class="stat-box">
+                                <span class="stat-num counter" data-target="5">5</span><span class="stat-plus">+</span>
+                                <span class="stat-label" data-i18n="stat_years">ปีแห่งการ<br>สร้างระบบ</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-num counter" data-target="99"></span><span class="stat-plus">%</span>
+                                <span class="stat-label" data-i18n="stat_cases">คดีโปรเจกต์<br>ปิดฉาก</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ส่วนของผลงานต่างๆ (มาในธีม กระดานหลักฐาน) -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="mono-label" data-i18n="projects_label">// แฟ้มภาพหลักฐาน A-C</span>
+                    <h2 class="section-title" data-i18n="projects_title">ผลงาน</h2>
+                    <div class="line-divider"></div>
+                </div>
+
+
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn prev-btn" aria-label="Previous">❮</button>
+                    <div class="projects-carousel">
+                        <!-- Project 1 -->
+                        <div class="project-card evidence-card reveal tilt-left">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project1.jpg" alt="Project 1" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_1_label">แฟ้ม #1</span>
+                                <h3 class="project-title" data-i18n="proj_1_title">ชื่อผลงานที่ 1</h3>
+                                <p class="project-desc" data-i18n="proj_1_desc">คำอธิบายภาพและผลงานที่ 1</p>
+                            </div>
+                        </div>
+                        <!-- Project 2 -->
+                        <div class="project-card evidence-card reveal tilt-right" style="transition-delay: 0.2s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project2.jpg" alt="Project 2" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_2_label">แฟ้ม #2</span>
+                                <h3 class="project-title" data-i18n="proj_2_title">ชื่อผลงานที่ 2</h3>
+                                <p class="project-desc" data-i18n="proj_2_desc">คำอธิบายภาพและผลงานที่ 2</p>
+                            </div>
+                        </div>
+                        <!-- Project 3 -->
+                        <div class="project-card evidence-card reveal tilt-left" style="transition-delay: 0.4s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project3.jpg" alt="Project 3" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_3_label">แฟ้ม #3</span>
+                                <h3 class="project-title" data-i18n="proj_3_title">ชื่อผลงานที่ 3</h3>
+                                <p class="project-desc" data-i18n="proj_3_desc">คำอธิบายภาพและผลงานที่ 3</p>
+                            </div>
+                        </div>
+                        <!-- Project 4 -->
+                        <div class="project-card evidence-card reveal tilt-right" style="transition-delay: 0.0s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project4.jpg" alt="Project 4" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_4_label">แฟ้ม #4</span>
+                                <h3 class="project-title" data-i18n="proj_4_title">ชื่อผลงานที่ 4</h3>
+                                <p class="project-desc" data-i18n="proj_4_desc">คำอธิบายภาพและผลงานที่ 4</p>
+                            </div>
+                        </div>
+                        <!-- Project 5 -->
+                        <div class="project-card evidence-card reveal tilt-left" style="transition-delay: 0.2s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project5.jpg" alt="Project 5" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_5_label">แฟ้ม #5</span>
+                                <h3 class="project-title" data-i18n="proj_5_title">ชื่อผลงานที่ 5</h3>
+                                <p class="project-desc" data-i18n="proj_5_desc">คำอธิบายภาพและผลงานที่ 5</p>
+                            </div>
+                        </div>
+                        <!-- Project 6 -->
+                        <div class="project-card evidence-card reveal tilt-right" style="transition-delay: 0.4s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project6.jpg" alt="Project 6" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_6_label">แฟ้ม #6</span>
+                                <h3 class="project-title" data-i18n="proj_6_title">ชื่อผลงานที่ 6</h3>
+                                <p class="project-desc" data-i18n="proj_6_desc">คำอธิบายภาพและผลงานที่ 6</p>
+                            </div>
+                        </div>
+                        <!-- Project 7 -->
+                        <div class="project-card evidence-card reveal tilt-left" style="transition-delay: 0.0s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project7.jpg" alt="Project 7" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_7_label">แฟ้ม #7</span>
+                                <h3 class="project-title" data-i18n="proj_7_title">ชื่อผลงานที่ 7</h3>
+                                <p class="project-desc" data-i18n="proj_7_desc">คำอธิบายภาพและผลงานที่ 7</p>
+                            </div>
+                        </div>
+                        <!-- Project 8 -->
+                        <div class="project-card evidence-card reveal tilt-right" style="transition-delay: 0.2s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project8.jpg" alt="Project 8" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_8_label">แฟ้ม #8</span>
+                                <h3 class="project-title" data-i18n="proj_8_title">ชื่อผลงานที่ 8</h3>
+                                <p class="project-desc" data-i18n="proj_8_desc">คำอธิบายภาพและผลงานที่ 8</p>
+                            </div>
+                        </div>
+                        <!-- Project 9 -->
+                        <div class="project-card evidence-card reveal tilt-left" style="transition-delay: 0.4s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project9.jpg" alt="Project 9" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_9_label">แฟ้ม #9</span>
+                                <h3 class="project-title" data-i18n="proj_9_title">ชื่อผลงานที่ 9</h3>
+                                <p class="project-desc" data-i18n="proj_9_desc">คำอธิบายภาพและผลงานที่ 9</p>
+                            </div>
+                        </div>
+                        <!-- Project 10 -->
+                        <div class="project-card evidence-card reveal tilt-right" style="transition-delay: 0.0s;">
+                            <div class="pushpin"></div>
+                            <div class="project-img-container">
+                                <img src="assets/img/project10.jpg" alt="Project 10" class="evidence-photo"
+                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="project-img redacted-img" style="display: none;">
+                                    <span class="redacted-text" data-i18n="proj_confidential">ลับสุดยอด</span>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <span class="mono-label" data-i18n="proj_10_label">แฟ้ม #10</span>
+                                <h3 class="project-title" data-i18n="proj_10_title">ชื่อผลงานที่ 10</h3>
+                                <p class="project-desc" data-i18n="proj_10_desc">คำอธิบายภาพและผลงานที่ 10</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn next-btn" aria-label="Next">❯</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ส่วนประสบการณ์การทำงาน (เรียงตามลำดับเวลา) -->
+        <section id="history" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="mono-label" data-i18n="hist_label">// ลำดับเวลาปฏิบัติงาน</span>
+                    <h2 class="section-title" data-i18n="hist_title">ประวัติการสืบสวนทำคดี</h2>
+                    <div class="line-divider"></div>
+                </div>
+
+                <div class="timeline">
+                    <!-- Data beam animation for network -->
+                    <div class="timeline-data-beam"></div>
+                    <!-- Job 1 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-marker">
+                            <div class="pin-small"></div>
+                        </div>
+                        <div class="timeline-content evidence-card">
+                            <div class="tape tape-top-center"></div>
+                            <div class="timeline-header">
+                                <h4 data-i18n="hist_1_title">หัวหน้าทีมสายลับ Front-End</h4>
+                                <span class="timeline-date" data-i18n="hist_1_date">2023 - ปัจจุบัน</span>
+                            </div>
+                            <h5 class="timeline-company" data-i18n="hist_1_comp">องค์กรลับ Agency X (Tech Corp)</h5>
+                            <ul class="timeline-list">
+                                <li data-i18n="hist_1_desc1">เป็นผู้นำทีมรุ่นเยาว์รื้อระบบใหญ่ (Monolith) ให้กลายเป็น
+                                    Micro-frontends ที่ทำงานลื่นไหลรวดเร็ว</li>
+                                <li data-i18n="hist_1_desc2">ค้นพบต้นตอปัญหาการเรนเดอร์ UI อืด
+                                    ลดระยะเวลาโหลดเว็บได้เกินกว่า 40%</li>
+                                <li data-i18n="hist_1_desc3">สร้างโครงข่ายจัดส่งงานสายฟ้าแลบ (CI/CD pipelines)
+                                    เพื่อความเสถียร</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 2 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-marker">
+                            <div class="pin-small"></div>
+                        </div>
+                        <div class="timeline-content evidence-card">
+                            <div class="timeline-header">
+                                <h4 data-i18n="hist_2_title">เจ้าหน้าที่พิเศษด้านหน้าจอ UI/UX</h4>
+                                <span class="timeline-date" data-i18n="hist_2_date">2020 - 2023</span>
+                            </div>
+                            <h5 class="timeline-company" data-i18n="hist_2_comp">บริษัท Solving Bugs จำกัด</h5>
+                            <ul class="timeline-list">
+                                <li data-i18n="hist_2_desc1">
+                                    ปรับแปลแบบร่างบนกระดาษให้กลายเป็นระบบจริงที่ตอบสนองเข้ากับมือถือได้ทันตา</li>
+                                <li data-i18n="hist_2_desc2">เชื่อมต่อกับ RESTful APIs ถอดรหัสลับและเจาะระบบดึงข้อมูลจาก
+                                    Server ขึ้นมาวางบนหน้าเว็บได้อย่างหมดจด</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ส่วนการติดต่องาน (ฟอร์มส่งเบาะแส) -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="mono-label" data-i18n="contact_label">// ช่องทางสื่อสารฉุกเฉิน</span>
+                    <h2 class="section-title" data-i18n="contact_title">ส่งมอบเบาะแสให้ฉัน</h2>
+                    <div class="line-divider"></div>
+                </div>
+
+                <div class="contact-wrapper reveal">
+                    <div class="manila-folder">
+                        <div class="folder-tab" data-i18n="contact_tab">เอกสารลงยันต์ลับ</div>
+                        <div class="folder-body">
+                            <div class="form-instructions">
+                                <p data-i18n="contact_warn"><strong>คำเตือน:</strong> การสนทนานี้ถูกเข้ารหัสไว้
+                                    หากคุณมีบั๊กหรือโปรเจกต์ใหญ่ โปรดทิ้งชื่อนามแฝงและเบาะแสเรื่องราวไว้ได้เลย</p>
+                            </div>
+                            <form id="contact-form" action="#" class="detective-form">
+                                <div class="form-group">
+                                    <label for="name" data-i18n="form_name">นามแฝง (ชื่อ)</label>
+                                    <input type="text" id="name" required data-i18n-ph="form_name_ph"
+                                        placeholder="สายลับ 007">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" data-i18n="form_email">ลิงก์สื่อสาร (อีเมล)</label>
+                                    <input type="email" id="email" required data-i18n-ph="form_email_ph"
+                                        placeholder="informant@agency.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message" data-i18n="form_msg">เบาะแสข่าว (ข้อความ)</label>
+                                    <textarea id="message" rows="5" required data-i18n-ph="form_msg_ph"
+                                        placeholder="ผมมีคดีโปรเจกต์ระบบเบ้อเริ่มให้คุณช่วย..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary submit-btn" data-i18n="form_btn">
+                                    <span class="btn-text">กดส่งสัญญาณลับ</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </button>
+                                <div class="form-status" id="form-status"></div>
+                            </form>
+                            <div class="stamp folder-stamp" data-i18n="proj_confidential">ลับสุดยอด</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ส่วนท้ายของเว็บไซต์ (Footer) -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">&#x1F575;&#xFE0E;</span> DOSSIER
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Nattawud1999" aria-label="GitHub">GitHub</a>
+                <a href="#" id="line-popup-btn" aria-label="LINE">LINE</a>
+                <a href="https://www.instagram.com/nattawut0108?igsh=OXVtcWFqZ3V2dDR6"
+                    aria-label="Instagram">Instagram</a>
+                <a href="https://web.facebook.com/profile.php?id=61587089441306" aria-label="Facebook">Facebook</a>
+            </div>
+            <p class="copyright">&copy; <span id="year"></span> <span data-i18n="footer_copy">สงวนลิขสิทธิ์ทั้งหมด
+                    ระบบป้องกันสัญญาณเข้ารหัสทำงานอยู่</span></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- LINE QR Code Modal -->
+    <div id="line-modal" class="modal">
+        <div class="modal-content evidence-card">
+            <span class="close-modal">&times;</span>
+            <div class="stamp-confidential" style="top: 10px; right: 10px; font-size: 1.2rem; transform: rotate(5deg);">
+                ติดต่อด่วน</div>
+            <h3 class="mono-label" style="text-align: center; font-size: 1.5rem; margin-bottom: 20px;">
+                สแกนเพื่อเพิ่มเพื่อน</h3>
+            <img src="assets/img/Line.jpg" alt="LINE QR Code"
+                style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 2px solid var(--card-border); border-radius: 8px;">
+            <p style="text-align: center; margin-top: 15px; font-size: 1.2rem; font-family: var(--font-mono);">
+                <strong>LINE ID:</strong> <span class="highlight">1star_channel</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Resume Selection Modal -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content evidence-card" style="text-align: center;">
+            <span class="close-modal close-resume-modal">&times;</span>
+            <div class="stamp-confidential"
+                style="top: -10px; right: -10px; font-size: 1.2rem; transform: rotate(10deg);">เลือกไฟล์</div>
+            <h3 class="section-title" style="margin-bottom: 20px; font-size: 1.8rem; letter-spacing: 0;">
+                เลือกเวอร์ชันเรซูเม่<br>(Select Version)</h3>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <button class="btn btn-primary resume-dl-btn" data-lang="th" style="width: 200px;">ภาษาไทย
+                    (Thai)</button>
+                <button class="btn btn-outline resume-dl-btn" data-lang="en" style="width: 200px;">English</button>
+            </div>
+            <p style="margin-top:20px; color: var(--text-muted); font-size: 0.9rem;">
+                (ไฟล์จะถูกดาวน์โหลดลงเครื่องของคุณทันที)</p>
+        </div>
+    </div>
+
 </body>
+
 </html>
